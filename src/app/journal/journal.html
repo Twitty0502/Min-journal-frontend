@@ -1,0 +1,21 @@
+<div class="myjournal-container">
+
+    <h1>My Journal</h1>
+
+    <h2>How do you feel today?</h2>
+
+    <div class="feelings">
+        <button (click)="selectFeeling('HAPPY')">Happy</button>
+        <button (click)="selectFeeling('SAD')">Sad</button>
+        <button (click)="selectFeeling('TIRED')">Tired</button>
+        <button (click)="selectFeeling('STRESSED')">Stressed</button>
+        <button (click)="selectFeeling('ANGRY')">Angry</button>
+
+        <p *ngIf="selectedFeeling"> Your selected feeling: {{ selectedFeeling }}</p>
+
+        <h2>Leave a note:</h2>
+        <textarea placeholder="Describe your feeling today..."></textarea>
+
+        <button class="save-button">Save note</button>
+
+    </div>
