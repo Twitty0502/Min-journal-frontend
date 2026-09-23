@@ -17,5 +17,15 @@
         <textarea [(ngModel)]="note" placeholder="Describe your feeling today..." rows="6" cols="50"></textarea>
 
         <button (click)="saveNote()" class="save-button">Save note</button>
+    </div>
 
+    <div class="savedNotes">
+        <h2>My JournalNotes</h2>
+        <div *ngFor="let journal of savedNotes">
+            <h3>{{ journal.feeling }}</h3>
+            <p> {{ journal.note }}</p>
+
+            <hr>
+
+        </div>
     </div>
