@@ -14,8 +14,8 @@
         <p *ngIf="selectedFeeling"> Your selected feeling: {{ selectedFeeling }}</p>
 
         <h2>Leave a note:</h2>
-        <textarea placeholder="Describe your feeling today..."></textarea>
+        <textarea [(ngModel)]="note" placeholder="Describe your feeling today..." rows="6" cols="50"></textarea>
 
-        <button class="save-button">Save note</button>
+        <button (click)="saveNote()" class="save-button">Save note</button>
 
     </div>
