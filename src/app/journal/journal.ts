@@ -1,4 +1,6 @@
-import { NgIf } from '@angular/common';
+
+//commonModule used for ngFor etc
+import { CommonModule, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 
 //used for ngModel - (create a connection between textfield and variable "note")
@@ -6,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-journal',
-  imports: [NgIf, FormsModule],
+  imports: [NgIf, FormsModule, CommonModule],
   templateUrl: './journal.html',
   styleUrl: './journal.css',
 })
@@ -15,12 +17,25 @@ export class Journal {
   selectedFeeling: string = '';
   note = '';
 
+  savedNotes: any[] = [];
+
   selectFeeling(feeling: string) {
     this.selectedFeeling = feeling;
   }
 
   saveNote() {
-    console.log('Feeling:', this.selectedFeeling);
-    console.log('Note:', this.note);
+
+    const journal = {
+      feeling: this.selectedFeeling,
+      note: this.note
+    };
+    console.log(journal);
+
+    this.savedNotes.push(journal);
+
+    this.note = '';
+    this.selectedFeeling = '';
   }
+
+
 }
