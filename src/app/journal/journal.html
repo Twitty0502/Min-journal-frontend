@@ -20,11 +20,13 @@
     </div>
 
     <div class="savedNotes">
-        <h2>My JournalNotes</h2>
+        <h2>My JournalNotes:</h2>
         <div *ngFor="let journal of savedNotes">
             <h3>{{ journal.feeling }}</h3>
-            <p> {{ journal.note }}</p>
-
+            <li> Saved Note: <br>
+                {{ journal.note }}</li>
+            <br>
+            <small> {{ journal.date | date:'yyyy-MM-dd HH:mm' }}</small>
             <hr>
 
         </div>

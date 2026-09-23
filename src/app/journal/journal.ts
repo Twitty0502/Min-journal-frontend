@@ -27,7 +27,8 @@ export class Journal {
 
     const journal = {
       feeling: this.selectedFeeling,
-      note: this.note
+      note: this.note,
+      date: new Date()
     };
     console.log(journal);
 
