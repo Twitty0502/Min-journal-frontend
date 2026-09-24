@@ -1,9 +1,10 @@
+import { JournalService } from './journal.service';
 
-//commonModule used for ngFor etc
+// commonModule används för ngFor t.ex.
 import { CommonModule, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
-//used for ngModel - (create a connection between textfield and variable "note")
+// används för ngModel - (skapa koppling mellan textfältet och variablen "note")
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -12,31 +13,70 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './journal.html',
   styleUrl: './journal.css',
 })
-export class Journal {
+export class Journal implements OnInit {
 
   selectedFeeling: string = '';
-  note = '';
+  note: string = '';
 
   savedNotes: any[] = [];
+
+  constructor(
+    private journalService: JournalService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) { }
+
+  ngOnInit() {
+    this.loadJournals();
+  }
 
   selectFeeling(feeling: string) {
     this.selectedFeeling = feeling;
   }
 
+  loadJournals() {
+    this.journalService.getAll().subscribe({
+      next: (journals) => {
+
+        console.log('Loaded journals:', journals);
+
+        this.savedNotes = [...journals];
+
+        // Tvingar Angular att uppdatera HTML
+        this.changeDetectorRef.detectChanges();
+      },
+
+      error: (error) => {
+        console.error('Could not load journals:', error);
+      }
+    });
+  }
+
   saveNote() {
 
     const journal = {
-      feeling: this.selectedFeeling,
-      note: this.note,
-      date: new Date()
+      status: this.selectedFeeling,
+      note: this.note
     };
-    console.log(journal);
 
-    this.savedNotes.push(journal);
+    this.journalService.create(journal).subscribe({
+      next: (savedJournal) => {
 
-    this.note = '';
-    this.selectedFeeling = '';
+        console.log('Journal saved:', savedJournal);
+
+        // Lägg till den nya journalen direkt
+        this.savedNotes = [...this.savedNotes, savedJournal];
+
+        // Töm formuläret
+        this.note = '';
+        this.selectedFeeling = '';
+
+        // Tvinga Angular att uppdatera listan direkt
+        this.changeDetectorRef.detectChanges();
+      },
+
+      error: (error) => {
+        console.error('Could not save journal:', error);
+      }
+    });
   }
-
-
 }

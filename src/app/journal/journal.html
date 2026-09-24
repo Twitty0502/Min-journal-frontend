@@ -1,7 +1,6 @@
 <div class="myjournal-container">
 
     <h1>My Journal</h1>
-
     <h2>How do you feel today?</h2>
 
     <div class="feelings">
@@ -11,23 +10,27 @@
         <button (click)="selectFeeling('STRESSED')">Stressed</button>
         <button (click)="selectFeeling('ANGRY')">Angry</button>
 
-        <p *ngIf="selectedFeeling"> Your selected feeling: {{ selectedFeeling }}</p>
+        <p *ngIf="selectedFeeling"> Your selected feeling: {{ selectedFeeling }} </p>
 
         <h2>Leave a note:</h2>
-        <textarea [(ngModel)]="note" placeholder="Describe your feeling today..." rows="6" cols="50"></textarea>
 
-        <button (click)="saveNote()" class="save-button">Save note</button>
+        <textarea [(ngModel)]="note" placeholder="Describe your feeling today..." rows="6" cols="50"> </textarea>
+        <br>
+
+        <button (click)="saveNote()" class="save-button"> Save note </button>
     </div>
 
     <div class="savedNotes">
-        <h2>My JournalNotes:</h2>
-        <div *ngFor="let journal of savedNotes">
-            <h3>{{ journal.feeling }}</h3>
-            <li> Saved Note: <br>
-                {{ journal.note }}</li>
-            <br>
-            <small> {{ journal.date | date:'yyyy-MM-dd HH:mm' }}</small>
-            <hr>
+        <h2>My Journal Notes:</h2>
 
+        <div *ngFor="let journal of savedNotes">
+            <h3> {{ journal.status }} </h3>
+
+            <p> Saved Note: <br> {{ journal.note }} </p>
+
+            <small> {{ journal.timeStamp | date:'yyyy-MM-dd HH:mm' }} </small>
+
+            <hr>
         </div>
     </div>
+</div>
