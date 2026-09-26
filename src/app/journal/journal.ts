@@ -20,6 +20,9 @@ export class Journal implements OnInit {
 
   savedNotes: any[] = [];
 
+  // Hämtar userId från sessionStorage
+  userId: number = Number(sessionStorage.getItem('userId'));
+
   constructor(
     private journalService: JournalService,
     private changeDetectorRef: ChangeDetectorRef
@@ -34,7 +37,7 @@ export class Journal implements OnInit {
   }
 
   loadJournals() {
-    this.journalService.getAll().subscribe({
+    this.journalService.getAll(this.userId).subscribe({
       next: (journals) => {
 
         console.log('Loaded journals:', journals);
@@ -58,7 +61,7 @@ export class Journal implements OnInit {
       note: this.note
     };
 
-    this.journalService.create(journal).subscribe({
+    this.journalService.create(this.userId, journal).subscribe({
       next: (savedJournal) => {
 
         console.log('Journal saved:', savedJournal);
