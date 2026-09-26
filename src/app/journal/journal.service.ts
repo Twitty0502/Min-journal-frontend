@@ -15,12 +15,14 @@ export class JournalService {
     constructor(private http: HttpClient) { }
 
     //lista alla tidigare journaler
-    getAll(): Observable<any[]> {
-        return this.http.get<any[]>(this.apiUrl);
-    }
+    getAll(userId: number): Observable<any[]> {
+        return this.http.get<any[]>(
+            `${this.apiUrl}?userId=${userId}`
+        );
+    };
 
     //skapa ny journal och skicka till backend
-    create(journal: any): Observable<any> {
+    create(userId: number, journal: any): Observable<any> {
         return this.http.post<any>(this.apiUrl, journal);
     }
 }
