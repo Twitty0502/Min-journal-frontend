@@ -17,4 +17,11 @@ export class LoginService {
             password: password
         });
     }
+
+    register(username: string, password: string): Observable<any> {
+        return this.http.post<any>('http://localhost:8080/users/register', {
+            username: username,
+            password: password
+        });
+    }
 }

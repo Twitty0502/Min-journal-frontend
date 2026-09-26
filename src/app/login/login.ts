@@ -40,4 +40,23 @@ export class Login {
       }
     });
   }
+
+  register() {
+
+    if (!this.username.trim() || !this.password.trim()) {
+      alert('Username and password are required.')
+      return;
+    }
+
+    this.loginService.register(this.username, this.password).subscribe({
+      next: () => {
+        alert('Finally registered, You can now log in!');
+        this.errorMessage = '';
+      },
+
+      error: () => {
+        this.errorMessage = 'Username already exists.';
+      }
+    });
+  }
 }

@@ -23,6 +23,9 @@ export class JournalService {
 
     //skapa ny journal och skicka till backend
     create(userId: number, journal: any): Observable<any> {
-        return this.http.post<any>(this.apiUrl, journal);
+        return this.http.post<any>(
+            `${this.apiUrl}?userId=${userId}`,
+            journal
+        );
     }
 }

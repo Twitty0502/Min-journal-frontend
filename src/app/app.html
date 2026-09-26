@@ -1,3 +1,8 @@
-<app-login *ngIf="isLoggedIn" (loginSuccess)="loginSuccess()"></app-login>
+@if (!isLoggedIn) {
+<app-login (loginSuccess)="loginSuccess()">
+</app-login>
+}
 
-<app-journal *ngIf="isLoggedIn"></app-journal>
+@if (isLoggedIn) {
+<app-journal></app-journal>
+}
