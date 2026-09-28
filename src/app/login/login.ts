@@ -30,6 +30,9 @@ export class Login {
         // Sparar användarens id så Journal vet vilken användare som är inloggad
         sessionStorage.setItem('userId', response.id);
 
+        // spara användarnamn
+        sessionStorage.setItem('username', response.username);
+
         // visar att login lyckades
         this.loginSuccess.emit();
       },

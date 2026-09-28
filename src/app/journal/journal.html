@@ -1,7 +1,7 @@
 <div class="myjournal-container">
 
     <h1>My Journal</h1>
-    <h2>How do you feel today?</h2>
+    <h2>How do you feel today <strong> {{ userName }} </strong>?</h2>
 
     <div class="feelings">
         <button (click)="selectFeeling('HAPPY')">Happy</button>
@@ -17,7 +17,7 @@
         <textarea [(ngModel)]="note" placeholder="Describe your feeling today..." rows="6" cols="50"> </textarea>
         <br>
 
-        <button (click)="saveNote()" class="save-button"> Save note </button>
+        <button (click)="saveNote()" class="buttons"> Save note </button>
     </div>
 
     <div class="savedNotes">
@@ -31,6 +31,9 @@
             <small> {{ journal.timeStamp | date:'yyyy-MM-dd HH:mm' }} </small>
 
             <hr>
+
         </div>
+        <button class="buttons" (click)="logout()">Logout</button>
+
     </div>
 </div>
