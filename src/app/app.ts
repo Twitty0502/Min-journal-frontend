@@ -12,7 +12,7 @@ import { Login } from './login/login';
 export class App {
   protected readonly title = signal('My Journal!');
 
-  isLoggedIn = false;
+  isLoggedIn = !!sessionStorage.getItem('userId');
 
   loginSuccess() {
     this.isLoggedIn = true;

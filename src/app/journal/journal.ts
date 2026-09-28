@@ -23,6 +23,8 @@ export class Journal implements OnInit {
   // Hämtar userId från sessionStorage
   userId: number = Number(sessionStorage.getItem('userId'));
 
+  userName: string = sessionStorage.getItem('username') || '';
+
   constructor(
     private journalService: JournalService,
     private changeDetectorRef: ChangeDetectorRef
@@ -34,6 +36,11 @@ export class Journal implements OnInit {
 
   selectFeeling(feeling: string) {
     this.selectedFeeling = feeling;
+  }
+
+  logout() {
+    sessionStorage.clear();
+    window.location.reload();
   }
 
   loadJournals() {
