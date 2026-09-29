@@ -29,6 +29,9 @@
             <li> Saved Note: <br> {{ journal.note }} </li>
 
             <small> {{ journal.timeStamp | date:'yyyy-MM-dd HH:mm' }} </small>
+            <small> {{ journal.timeStamp | date:'d MMMM y' : '' : 'sv-SE' }}
+                Clock
+                {{ journal.timeStamp | date:'HH:mm' }}</small>
 
             <hr>
 
