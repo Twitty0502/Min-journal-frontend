@@ -1,5 +1,5 @@
 import { JournalService } from './journal.service';
-
+import { StatisticsService } from '../services/statistics.service';
 // commonModule används för ngFor t.ex.
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
@@ -20,6 +20,13 @@ export class Journal implements OnInit {
 
   savedNotes: any[] = [];
 
+  //statistics
+  showStatistics = false;
+  startDate = '';
+  endDate = '';
+  statistics: { [key: string]: number } = {};
+  //statistics ^
+
   // Hämtar userId från sessionStorage
   userId: number = Number(sessionStorage.getItem('userId'));
 
@@ -27,7 +34,8 @@ export class Journal implements OnInit {
 
   constructor(
     private journalService: JournalService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private statisticsService: StatisticsService
   ) { }
 
   ngOnInit() {
@@ -41,6 +49,47 @@ export class Journal implements OnInit {
   logout() {
     sessionStorage.clear();
     window.location.reload();
+  }
+
+  openStatistics() {
+    this.showStatistics = true;
+  }
+
+  closeStatistics() {
+    this.showStatistics = false;
+  }
+
+  getStatistics() {
+
+    if (!this.startDate || !this.endDate) {
+      return;
+    }
+
+    // Töm tidigare statistik innan vi hämtar den nya
+    this.statistics = {};
+
+    const start = `${this.startDate}T00:00:00`;
+    const end = `${this.endDate}T23:59:59`;
+
+    this.statisticsService.getStatistics(
+      this.userId,
+      start,
+      end
+    ).subscribe({
+      next: (result) => {
+
+        console.log('Statistics:', result);
+
+        // Sparar den nya statistiken
+        this.statistics = result;
+
+        this.changeDetectorRef.detectChanges();
+      },
+
+      error: (error) => {
+        console.error('Could not load statistics:', error);
+      }
+    });
   }
 
   loadJournals() {

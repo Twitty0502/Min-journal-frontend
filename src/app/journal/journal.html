@@ -18,6 +18,10 @@
         <br>
 
         <button (click)="saveNote()" class="buttons"> Save note </button>
+
+        <button class="statistics-button" (click)="openStatistics()">
+            Open statistics view
+        </button>
     </div>
 
     <div class="savedNotes">
@@ -30,7 +34,7 @@
 
             <small> {{ journal.timeStamp | date:'yyyy-MM-dd HH:mm' }} </small>
             <small> {{ journal.timeStamp | date:'d MMMM y' : '' : 'sv-SE' }}
-                Clock
+                Klockan
                 {{ journal.timeStamp | date:'HH:mm' }}</small>
 
             <hr>
@@ -40,3 +44,59 @@
 
     </div>
 </div>
+
+@if (showStatistics) {
+
+<div class="statistics-overlay">
+
+    <div class="statistics-popup">
+
+        <h2>My Statistics</h2>
+        <h3>Filter by:</h3>
+        <label for="startDate">Start date:</label>
+
+        <input id="startDate" type="date" [(ngModel)]="startDate">
+
+        <label for="endDate">End date:</label>
+
+        <input id="endDate" type="date" [(ngModel)]="endDate">
+
+        <button class="show-statistics-button" (click)="getStatistics()">
+            Show statistics
+        </button>
+        @if ((statistics | keyvalue).length > 0) {
+
+        <div class="statistics-results">
+
+            <h3 class>Statistics:</h3>
+
+            <div *ngFor="let item of statistics | keyvalue">
+
+                <p>
+                    {{ item.key }}:
+                    {{ item.value | number:'1.0-1' }}%
+                </p>
+
+            </div>
+
+        </div>
+
+        } @else if (startDate && endDate) {
+
+        <div class="statistics-results">
+
+            <p>Could not find any saved journals between selected dates.</p>
+
+        </div>
+
+        }
+
+        <button class="close-button" (click)="closeStatistics()">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+}
