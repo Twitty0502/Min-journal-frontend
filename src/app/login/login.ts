@@ -46,11 +46,13 @@ export class Login {
 
   register() {
 
+    // Checkar så att användarnamn och lösenord inte är tomma
     if (!this.username.trim() || !this.password.trim()) {
       alert('Username and password are required.')
       return;
     }
 
+    // Användarnamn och lösenord till backend för registrering
     this.loginService.register(this.username, this.password).subscribe({
       next: () => {
         alert('Finally registered, You can now log in!');
