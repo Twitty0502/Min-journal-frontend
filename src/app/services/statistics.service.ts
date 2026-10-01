@@ -18,6 +18,7 @@ export class StatisticsService {
         end: string
     ): Observable<{ [key: string]: number }> {
 
+        // get anrop med userid samt start och end datum
         return this.http.get<{ [key: string]: number }>(
             `${this.apiUrl}?userId=${userId}&start=${start}&end=${end}`
         );

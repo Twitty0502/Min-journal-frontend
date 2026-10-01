@@ -11,6 +11,7 @@ export class LoginService {
 
     constructor(private http: HttpClient) { }
 
+    //skickar användarnamn och lösenord till backend för login
     login(username: string, password: string): Observable<any> {
         return this.http.post<any>(this.apiUrl, {
             username: username,
@@ -18,6 +19,7 @@ export class LoginService {
         });
     }
 
+    //skickar anändarnamn och lösenord till backend för registrering
     register(username: string, password: string): Observable<any> {
         return this.http.post<any>('http://localhost:8080/users/register', {
             username: username,
